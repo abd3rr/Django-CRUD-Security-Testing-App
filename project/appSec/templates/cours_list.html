@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Cours
+List{%endblock %} {% block content %}
+<h1>Cours List</h1>
+
+<a href="{% url 'cours_create' %}" class="btn btn-primary mb-3"
+  >Add New Cours</a
+>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Enseignant</th>
+      <th>Salle</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for cours in cours %}
+    <tr>
+      <td>{{ cours.id_cours }}</td>
+      <td>{{ cours.id_enseignant.nom_enseignant }}</td>
+      <td>{{ cours.id_salle.nom_salle }}</td>
+      <td>
+        <a href="{% url 'cours_update' cours.pk %}" class="btn btn-sm btn-info"
+          >Edit</a
+        >
+        <a
+          href="{% url 'cours_delete' cours.pk %}"
+          class="btn btn-sm btn-danger"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

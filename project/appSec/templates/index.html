@@ -1,0 +1,80 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Home{% endblock %}
+{% block content %}
+<h1>School Management Dashboard</h1>
+
+<h2>Cours</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Enseignant</th>
+      <th>Salle</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for cours in cours %}
+    <tr>
+      <td>{{ cours.id_cours }}</td>
+      <td>{{ cours.id_enseignant.nom_enseignant }}</td>
+      <td>{{ cours.id_salle.nom_salle }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Etudiants</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for etudiant in etudiants %}
+    <tr>
+      <td>{{ etudiant.id_etudiant }}</td>
+      <td>{{ etudiant.nom_etudiant }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Enseignants</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for enseignant in enseignants %}
+    <tr>
+      <td>{{ enseignant.id_enseignant }}</td>
+      <td>{{ enseignant.nom_enseignant }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Notes</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Cours</th>
+      <th>Etudiant</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for note in notes %}
+    <tr>
+      <td>{{ note.id_cours }}</td>
+      <td>{{ note.id_etudiant.nom_etudiant }}</td>
+      <td>{{ note.note_obtenue }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
