@@ -4,26 +4,53 @@
 
 {% block content %}
 <h1>Etudiant List</h1>
+
+<!-- Instructions for SQL Injection -->
+<div class="alert alert-danger" role="alert">
+    <p><strong>Warning:</strong> This form is vulnerable to SQL injection. Try the following:</p>
+    <ul>
+        <li><strong>Show all students:</strong> Enter <code>' OR '1'='1</code> in the search box and submit.</li>
+        <li><strong>Find specific students:</strong> Enter part of a student's name (e.g., <code>John</code>) and submit.</li>
+    </ul>
+</div>
+
+<!-- Search form -->
+<form method="get">
+    <input type="text" name="search" placeholder="Search students..." value="{{ search_term }}">
+    <button type="submit">Search</button>
+</form>
+
+<!-- Only show the table if there are students to display -->
+{% if etudiants %}
+    <p>End of vulnerable section</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for etudiant in etudiants %}
+            <tr>
+                <td>{{ etudiant.id_etudiant }}</td>
+                <!-- Display the student's name (safe for now, can enable XSS later) -->
+                <td>{{ etudiant.nom_etudiant|safe }}</td>
+                <td>
+                    <a href="{% url 'etudiant_update' etudiant.id_etudiant %}" class="btn btn-sm btn-info">Edit</a>
+                    <a href="{% url 'etudiant_delete' etudiant.id_etudiant %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No students found. Try entering a search term or <code>' OR '1'='1</code> to show all students.</p>
+{% endif %}
+
+<!-- Add a new student -->
 <a href="{% url 'etudiant_create' %}" class="btn btn-primary mb-3">Add New Etudiant</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for etudiant in etudiants %}
-        <tr>
-            <td>{{ etudiant.id_etudiant }}</td>
-            <td>{{ etudiant.nom_etudiant }}</td>
-            <td>
-                <a href="{% url 'etudiant_update' etudiant.pk %}" class="btn btn-sm btn-info">Edit</a>
-                <a href="{% url 'etudiant_delete' etudiant.pk %}" class="btn btn-sm btn-danger">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+
 {% endblock %}

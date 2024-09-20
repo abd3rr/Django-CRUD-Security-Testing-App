@@ -11,10 +11,13 @@ urlpatterns = [
     path('cours/<int:pk>/delete/', views.CoursDeleteView.as_view(), name='cours_delete'),
     
     # Etudiant URLs
-    path('etudiants/', views.EtudiantListView.as_view(), name='etudiant_list'),
+    #path('etudiants/', views.EtudiantListView.as_view(), name='etudiant_list'),
     path('etudiants/new/', views.EtudiantCreateView.as_view(), name='etudiant_create'),
     path('etudiants/<int:pk>/edit/', views.EtudiantUpdateView.as_view(), name='etudiant_update'),
     path('etudiants/<int:pk>/delete/', views.EtudiantDeleteView.as_view(), name='etudiant_delete'),
+    #vul ---
+    path('etudiants/', views.VulnerableEtudiantListView.as_view(), name='etudiant_list'),
+
     
     # Enseignant URLs
     path('enseignants/', views.EnseignantListView.as_view(), name='enseignant_list'),
