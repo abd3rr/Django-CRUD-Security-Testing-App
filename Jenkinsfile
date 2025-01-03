@@ -2,15 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'master', url: 'https://github.com/abd3rr/Django-CRUD-Security-Testing-App.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 sh '''
+                python3 -m venv venv
+                . venv/bin/activate
+                pip install --upgrade pip
                 pip install -r requirements.txt
                 '''
             }
